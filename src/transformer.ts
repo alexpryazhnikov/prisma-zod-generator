@@ -192,8 +192,11 @@ export default class Transformer {
   }
 
   getImportZodObjectProperties() {
-    let zodObjectPropertiesImportStatement =
-      "import { ZodObjectProperties } from 'prisma-zod-generator/lib/types';";
+    let zodObjectPropertiesImportStatement = `import type { ZodObjectProperties } from '${
+      process.env.NODE_ENV === 'development'
+        ? '../../../..'
+        : 'prisma-zod-generator'
+    }/lib/types';`;
     zodObjectPropertiesImportStatement += '\n';
     return zodObjectPropertiesImportStatement;
   }
@@ -227,11 +230,13 @@ export default class Transformer {
     return jsonSchemaImplementation;
   }
 
-  getImportsForObjectSchemas() {
+  getImportsForObjectSchemas(withZodObjectProperties: boolean) {
     let imports = this.getImportZod();
-    imports += this.getImportZodObjectProperties();
-    imports += this.getAllSchemaImports();
+    if (withZodObjectProperties) {
+      imports += this.getImportZodObjectProperties();
+    }
     imports += '\n\n';
+    imports += this.getAllSchemaImports();
     return imports;
   }
 
@@ -314,7 +319,9 @@ export default class Transformer {
 
     const json = this.getJsonSchemaImplementation();
 
-    return `${this.getImportsForObjectSchemas()}${prismaImport}${json}${objectSchema}`;
+    return `${this.getImportsForObjectSchemas(
+      objectSchema.indexOf('ZodObjectProperties') !== -1,
+    )}${prismaImport}${json}${objectSchema}`;
   }
 
   async printObjectSchemas() {
