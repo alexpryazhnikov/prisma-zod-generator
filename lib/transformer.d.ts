@@ -28,7 +28,7 @@ export default class Transformer {
     getImportZodObjectProperties(): string;
     getImportPrisma(): string;
     getJsonSchemaImplementation(): string;
-    getImportsForObjectSchemas(): string;
+    getImportsForObjectSchemas(withZodObjectProperties: boolean): string;
     getImportsForSchemas(additionalImports: string[]): string;
     addExportObjectSchema(schema: string): string;
     addExportSchema(schema: string, name: string): string;
