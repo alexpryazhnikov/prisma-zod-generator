@@ -42,5 +42,5 @@
     "url": "https://github.com/omar-dulaimi/prisma-zod-generator/issues"
   },
   "homepage": "https://github.com/omar-dulaimi/prisma-zod-generator#readme",
-  "private": true
+  "private": false
 }
