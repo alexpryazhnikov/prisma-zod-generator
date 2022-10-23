@@ -191,6 +191,13 @@ export default class Transformer {
     return zodImportStatement;
   }
 
+  getImportZodObjectProperties() {
+    let zodObjectPropertiesImportStatement =
+      "import { ZodObjectProperties } from 'prisma-zod-generator/lib/types';";
+    zodObjectPropertiesImportStatement += '\n';
+    return zodObjectPropertiesImportStatement;
+  }
+
   getImportPrisma() {
     let prismaClientPath = '@prisma/client';
     if (Transformer.isDefaultPrismaClientOutput) {
@@ -222,6 +229,7 @@ export default class Transformer {
 
   getImportsForObjectSchemas() {
     let imports = this.getImportZod();
+    imports += this.getImportZodObjectProperties();
     imports += this.getAllSchemaImports();
     imports += '\n\n';
     return imports;
@@ -244,7 +252,7 @@ export default class Transformer {
       }
     }
     const end = `export const ${exportName}ObjectSchema = Schema`;
-    return `const Schema: z.ZodType<Prisma.${name}> = ${schema};\n\n ${end}`;
+    return `const Schema: ZodObjectProperties<Prisma.${name}> = ${schema};\n\n ${end}`;
   }
 
   addExportSchema(schema: string, name: string) {
