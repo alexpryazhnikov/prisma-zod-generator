@@ -252,10 +252,10 @@ export default class Transformer {
       }
     }
     const end = `export const ${exportName}ObjectSchema = Schema`;
-    return `const Schema = ${schema.replace(
-      'z.object',
-      'z.object<ZodObjectProperties<Prisma.' + name + '>>',
-    )};\n\n ${end}`;
+    return `const Schema = ${schema};\n\n ${end}`.replace(
+      'const Schema = z.object',
+      `const Schema = z.object<ZodObjectProperties<Prisma.${name}>>`,
+    );
   }
 
   addExportSchema(schema: string, name: string) {
