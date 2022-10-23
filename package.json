@@ -9,7 +9,7 @@
   "scripts": {
     "gen-example": "tsc && npx prisma generate",
     "package:publish": "./package.sh && cd package && npm publish",
-    "postinstall": "cd ./node_modules/prisma-zod-generator && npm install && tsc"
+    "postinstall": "cd node_modules/prisma-zod-generator && npm install && tsc"
   },
   "author": {
     "name": "Omar Dulaimi",
