@@ -9,7 +9,8 @@
   "scripts": {
     "gen-example": "tsc && npx prisma generate",
     "package:publish": "./package.sh && cd package && npm publish",
-    "postinstall": "npm install && tsc"
+    "postinstall": "node postinstall.js",
+    "build": "tsc"
   },
   "author": {
     "name": "Omar Dulaimi",
